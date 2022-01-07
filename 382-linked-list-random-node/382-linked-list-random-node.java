@@ -10,25 +10,30 @@
  */
 class Solution {
 
-    private ArrayList<Integer> list;
-    public Solution(ListNode head) {
-        list=new ArrayList<>();
+    //for better understanding of this algo
+    // -> https://www.youtube.com/watch?v=A1iwzSew5QY
+    
+    private ListNode head;
+    private Random rn;
+    public Solution(ListNode h) {
+    
+        head=h;
+        rn=new Random();
         
-        ListNode curr=head;
-             
-        while(curr!=null){
-                list.add(curr.val);
-                curr=curr.next; 
-        }
     }
     
     public int getRandom() {
+        if(head==null)return 0;
         
-        int size=list.size();
+        ListNode curr = head;
+        int r=curr.val;
         
-        int idx=(int)(Math.random()*size);
-        
-        return list.get(idx);
+        for(int i=1;curr.next!=null;i++){
+            curr=curr.next;
+            
+            if(rn.nextInt(i+1)==1)r=curr.val;
+        }
+        return r;       
     }
 }
 

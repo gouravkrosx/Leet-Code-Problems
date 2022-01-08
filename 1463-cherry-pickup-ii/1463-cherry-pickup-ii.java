@@ -12,8 +12,7 @@ class Solution {
     }
     	private  int cherryPickup(int fr_r, int fr_c, int sr_r, int sr_c, int[][] grid,
 			HashMap<String, Integer> map) {
-		if (fr_r >= grid.length || sr_r >= grid.length || fr_c < 0 || fr_c >= grid[0].length || sr_c < 0
-				|| sr_c >= grid[0].length) {
+				if (fr_r >= grid.length || sr_r >= grid.length || fr_c < 0 || fr_c >= grid[0].length || sr_c < 0 || sr_c >= grid[0].length) {
 			return 0;
 		}
 
@@ -29,99 +28,42 @@ class Solution {
 			return map.get(str);
 		}
 
+		int count = 0;
+		if (fr_r == sr_r && fr_c == sr_c) {
+			count += grid[fr_r][fr_c];
+		} else {
+			count += grid[fr_r][fr_c] + grid[sr_r][sr_c];
+		}
+
 		// line calls for every combination
 		int[] calls = new int[9];
 
 		// 1
-		if (fr_r == sr_r && fr_c == sr_c) {
-			calls[0] = cherryPickup(fr_r + 1, fr_c - 1, sr_r + 1, sr_c - 1, grid, map) + grid[fr_r][fr_c];
-
-		} else {
-			calls[0] = cherryPickup(fr_r + 1, fr_c - 1, sr_r + 1, sr_c - 1, grid, map) + grid[fr_r][fr_c]
-					+ grid[sr_r][sr_c];
-
-		}
-
-//		System.out.println(calls[0]);
+		calls[0] = cherryPickup(fr_r + 1, fr_c - 1, sr_r + 1, sr_c - 1, grid, map) + count;
 
 		// 2
-		if (fr_r == sr_r && fr_c == sr_c) {
-			calls[1] = cherryPickup(fr_r + 1, fr_c - 1, sr_r + 1, sr_c, grid, map) + grid[fr_r][fr_c];
-		} else {
-			calls[1] = cherryPickup(fr_r + 1, fr_c - 1, sr_r + 1, sr_c, grid, map) + grid[fr_r][fr_c]
-					+ grid[sr_r][sr_c];
-		}
-
-//		System.out.println(calls[1]);
+		calls[1] = cherryPickup(fr_r + 1, fr_c - 1, sr_r + 1, sr_c, grid, map) + count;
 
 		// 3
-		if (fr_r == sr_r && fr_c == sr_c) {
-			calls[2] = cherryPickup(fr_r + 1, fr_c - 1, sr_r + 1, sr_c + 1, grid, map) + grid[fr_r][fr_c];
-		} else {
-			calls[2] = cherryPickup(fr_r + 1, fr_c - 1, sr_r + 1, sr_c + 1, grid, map) + grid[fr_r][fr_c]
-					+ grid[sr_r][sr_c];
-		}
-
-//		System.out.println(calls[2]);
+		calls[2] = cherryPickup(fr_r + 1, fr_c - 1, sr_r + 1, sr_c + 1, grid, map) + count;
 
 		// 4
-		if (fr_r == sr_r && fr_c == sr_c) {
-			calls[3] = cherryPickup(fr_r + 1, fr_c, sr_r + 1, sr_c - 1, grid, map) + grid[fr_r][fr_c];
-		} else {
-			calls[3] = cherryPickup(fr_r + 1, fr_c, sr_r + 1, sr_c - 1, grid, map) + grid[fr_r][fr_c]
-					+ grid[sr_r][sr_c];
-		}
-
-//		System.out.println(calls[3]);
+		calls[3] = cherryPickup(fr_r + 1, fr_c, sr_r + 1, sr_c - 1, grid, map) + count;
 
 		// 5
-		if (fr_r == sr_r && fr_c == sr_c) {
-			calls[4] = cherryPickup(fr_r + 1, fr_c, sr_r + 1, sr_c, grid, map) + grid[fr_r][fr_c];
-		} else {
-			calls[4] = cherryPickup(fr_r + 1, fr_c, sr_r + 1, sr_c, grid, map) + grid[fr_r][fr_c] + grid[sr_r][sr_c];
-		}
-
-//		System.out.println(calls[4]);
+		calls[4] = cherryPickup(fr_r + 1, fr_c, sr_r + 1, sr_c, grid, map) + count;
 
 		// 6
-		if (fr_r == sr_r && fr_c == sr_c) {
-			calls[5] = cherryPickup(fr_r + 1, fr_c, sr_r + 1, sr_c + 1, grid, map) + grid[fr_r][fr_c];
-		} else {
-			calls[5] = cherryPickup(fr_r + 1, fr_c, sr_r + 1, sr_c + 1, grid, map) + grid[fr_r][fr_c]
-					+ grid[sr_r][sr_c];
-		}
-
-//		System.out.println(calls[5]);
+		calls[5] = cherryPickup(fr_r + 1, fr_c, sr_r + 1, sr_c + 1, grid, map) + count;
 
 		// 7
-		if (fr_r == sr_r && fr_c == sr_c) {
-			calls[6] = cherryPickup(fr_r + 1, fr_c + 1, sr_r + 1, sr_c - 1, grid, map) + grid[fr_r][fr_c];
-		} else {
-			calls[6] = cherryPickup(fr_r + 1, fr_c + 1, sr_r + 1, sr_c - 1, grid, map) + grid[fr_r][fr_c]
-					+ grid[sr_r][sr_c];
-		}
-
-//		System.out.println(calls[6]);
+		calls[6] = cherryPickup(fr_r + 1, fr_c + 1, sr_r + 1, sr_c - 1, grid, map) + count;
 
 		// 8
-		if (fr_r == sr_r && fr_c == sr_c) {
-			calls[7] = cherryPickup(fr_r + 1, fr_c + 1, sr_r + 1, sr_c, grid, map) + grid[fr_r][fr_c];
-		} else {
-			calls[7] = cherryPickup(fr_r + 1, fr_c + 1, sr_r + 1, sr_c, grid, map) + grid[fr_r][fr_c]
-					+ grid[sr_r][sr_c];
-		}
-
-//		System.out.println(calls[7]);
+		calls[7] = cherryPickup(fr_r + 1, fr_c + 1, sr_r + 1, sr_c, grid, map) + count;
 
 		// 9
-		if (fr_r == sr_r && fr_c == sr_c) {
-			calls[8] = cherryPickup(fr_r + 1, fr_c + 1, sr_r + 1, sr_c + 1, grid, map) + grid[fr_r][fr_c];
-		} else {
-			calls[8] = cherryPickup(fr_r + 1, fr_c + 1, sr_r + 1, sr_c + 1, grid, map) + grid[fr_r][fr_c]
-					+ grid[sr_r][sr_c];
-		}
-
-//		System.out.println(calls[8]);
+		calls[8] = cherryPickup(fr_r + 1, fr_c + 1, sr_r + 1, sr_c + 1, grid, map) + count;
 
 		int max = Integer.MIN_VALUE;
 		for (int i = 0; i < calls.length; i++) {

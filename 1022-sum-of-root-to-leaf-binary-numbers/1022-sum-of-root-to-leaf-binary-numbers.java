@@ -19,29 +19,21 @@ class Solution {
             return 0;
         }
         
-        ArrayList<String>list = new ArrayList<>();
-        String path = "0";        
-        sumRootToLeaf(root,path,list);
-        return findSum(list);
+       return sumRootToLeaf(root,0);
+      
     }
-    public void sumRootToLeaf(TreeNode node, String path, ArrayList<String>list){
+    public int sumRootToLeaf(TreeNode node, int parentSum){
         if(node==null){
-            return;
-        }
-        if(node.left==null && node.right==null){
-            list.add(path+node.val); 
-            return;
+            return 0;
         }
         
-        sumRootToLeaf(node.left,path+node.val,list);
-        sumRootToLeaf(node.right,path+node.val,list);
-    }
-    public int findSum(ArrayList<String>list){
-        int sum=0;
-        for(String str:list){
-            if(str!=null)
-            sum+=Integer.parseInt(str,2);
+        parentSum=parentSum*2+node.val;
+        
+        if(node.left==null && node.right==null){
+         
+            return parentSum;
         }
-        return sum;
+        
+        return sumRootToLeaf(node.left,parentSum)+sumRootToLeaf(node.right,parentSum);
     }
 }

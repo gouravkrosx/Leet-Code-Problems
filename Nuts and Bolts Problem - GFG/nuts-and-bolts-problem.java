@@ -45,7 +45,38 @@ public class Main {
 
 class Solution {
     void matchPairs(char nuts[], char bolts[], int n) {
-        Arrays.sort(nuts);
-        Arrays.sort(bolts);
+       MatchPairs(nuts,bolts,0,n-1);
+    }
+    public void MatchPairs(char[]nuts,char[]bolts,int low,int hi){
+        if(low<hi){
+            int pivot=partition(nuts,low,hi,bolts[hi]);
+            
+            partition(bolts,low,hi,nuts[pivot]);
+            
+            MatchPairs(nuts,bolts,low,pivot-1);
+            MatchPairs(nuts,bolts,pivot+1,hi);
+        }
+    }
+    public int partition(char[]arr,int l,int h,char ch){
+        int i=l;
+        
+        int j=l;
+        while(j<h){
+            if(arr[j]<ch){
+                swap(arr,i,j);
+                i++;
+            }else if(arr[j]==ch){
+                swap(arr,j,h);
+                j--;
+            }
+            j++;
+        }
+        swap(arr,i,h);
+        return i;
+    }
+    public void swap(char[]arr,int i,int j){
+        char temp=arr[i];
+        arr[i]=arr[j];
+        arr[j]=temp;
     }
 }

@@ -1,24 +1,18 @@
 class Solution {
-    public List<List<Integer>> combine(int n, int k) {
-        
-        List<List<Integer>>ans=new ArrayList<>();
-        Combinations(1,n,k,new ArrayList<>(),ans);
-        return ans;
-    }
-    public void Combinations(int i,int n,int k,List<Integer>list,List<List<Integer>>ans){
-        if(i==n+1){
-            if(k==0){
-                ans.add(new ArrayList<>(list));
-            }
-            return;
-        }
-        
-            
-        //include 
-        list.add(i);
-        Combinations(i+1,n,k-1,list,ans);
-        list.remove(list.size()-1);
-        
-        Combinations(i+1,n,k,list,ans);
-    }
+    public static List<List<Integer>> combine(int n, int k) {
+		List<List<Integer>> combs = new ArrayList<List<Integer>>();
+		combine(combs, new ArrayList<Integer>(), 1, n, k);
+		return combs;
+	}
+	public static void combine(List<List<Integer>> combs, List<Integer> comb, int start, int n, int k) {
+		if(k==0) {
+			combs.add(new ArrayList<Integer>(comb));
+			return;
+		}
+		for(int i=start;i<=n;i++) {
+			comb.add(i);
+			combine(combs, comb, i+1, n, k-1);
+			comb.remove(comb.size()-1);
+		}
+	}
 }

@@ -12,24 +12,20 @@ PROOF for updating start and end if there is no common area:
 common area with {start,end} which is previous interval.
     
     */
-    public int findMinArrowShots(int[][] intervals) {
-         if(intervals.length==0)return 0;
+    public int findMinArrowShots(int[][] points) {
+         if(points.length==0)return 0;
         
-        Arrays.sort(intervals,(int[]a,int[]b) ->Integer.compare(a[0],b[0])); //sorting with increasing start time
-        
-        int count=1;
-        int end=Integer.MAX_VALUE;
-        
-        for(int i=0;i<intervals.length;i++){
-            int start=intervals[i][0];
-            if(start>end){ //no overlapping
-                end=intervals[i][1];
-                count++;;
-            }else{
-               end=Math.min(end,intervals[i][1]); 
+       int count = 0;
+        long end = Long.MIN_VALUE;
+        Arrays.sort(points, (a, b) -> Integer.compare(a[1],b[1]));
+
+        for(int[] p: points){
+            if(p[0] > end){
+                end = p[1];
+                count++;
             }
         }
-        
+
         return count;
     }
 }

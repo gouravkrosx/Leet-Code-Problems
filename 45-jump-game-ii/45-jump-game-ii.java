@@ -7,23 +7,19 @@ class Solution {
  
     }
     public static long MinJumps(int[] nums, int vidx, long[] dp) {
-		if (vidx >= nums.length)
-			return Integer.MAX_VALUE;
-
-		if (vidx == nums.length - 1) {
+		if (vidx >= nums.length-1)
 			return 0;
-		}
+
 		if (dp[vidx] != -1) {
 			return dp[vidx];
 		}
 
 		long jumps = Integer.MAX_VALUE;
-        //val here is the steps it can take
 		for (int val = vidx+1; val <= vidx+nums[vidx]; val++) {
             if(nums[vidx]!=0)
 			jumps = Math.min(jumps, MinJumps(nums,val, dp));
 		}
 		jumps+=1;
-		return dp[vidx] = jumps;
+		return dp[vidx]=jumps;
 	}
 }

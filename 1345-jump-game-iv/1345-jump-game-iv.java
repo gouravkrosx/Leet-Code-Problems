@@ -1,4 +1,11 @@
 class Solution {
+  
+    /*
+Anyone who doesn't understand it
+Just try executing this test case: 7 7 7 7 7 1 2 3
+with cout<<arr[i]<<" "<<next.size()<<endl; // below this line vector& next = indicesOfValue[arr[i]];
+After the first iteration the size of map[arr[i]] i;e 7 will become 0
+   */ 
     public int minJumps(int[] arr) {
        	ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
 
@@ -6,16 +13,10 @@ class Solution {
 
 		HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
 
-		for (int i = 0; i < n; i++) {
-			if (!map.containsKey(arr[i])) {
-				ArrayList<Integer> list = new ArrayList<>();
-				list.add(i);
-				map.put(arr[i], list);
-			} else {
-                ArrayList<Integer> list = map.get(arr[i]);
-				list.add(i);
-			}
-		}
+		for (int i = 0; i<n; i++) {
+            map.putIfAbsent(arr[i], new ArrayList<>());            
+            map.get(arr[i]).add(i);            
+        }
 
 	
 		Queue<Integer> q = new LinkedList<>();
@@ -44,7 +45,7 @@ class Solution {
 						q.offer(an);
 					}
 				}
-                list.clear();
+                list.clear();   //avoid later lookup , and later TLE.
 			}  
 			steps++;
 		}

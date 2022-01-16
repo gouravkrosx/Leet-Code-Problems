@@ -1,5 +1,13 @@
 class Solution {
     public int maxDistToClosest(int[] seats) {
+        /*
+        
+       # 3 cases are there
+        1. 100000
+        2. 000001
+        3. 100001
+        
+        */
         
         int n = seats.length;
         

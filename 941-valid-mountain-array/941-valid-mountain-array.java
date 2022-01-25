@@ -1,30 +1,8 @@
 class Solution {
-    public boolean validMountainArray(int[] arr) {
-        if(arr.length<3 || arr[0]>=arr[1])return false;
-        
-        
-        boolean fl = false;
-        int right=0;
-        
-        for(int i=1;i<arr.length;i++){
-            if(arr[i-1]==arr[i])return false;
-            
-            if(!fl){
-                if(arr[i-1]<arr[i]){
-                    
-                }else{
-                    fl=true;
-                    right=1;
-                }
-            }else{
-                if(arr[i-1]>arr[i]){
-                    right=1;
-                }else{
-                    return false;
-                }
-            }
-        }
-        
-        return (right==1);
+    public boolean validMountainArray(int[] A) {
+        int n = A.length, i = 0, j = n - 1;
+        while (i + 1 < n && A[i] < A[i + 1]) i++;
+        while (j > 0 && A[j - 1] > A[j]) j--;
+        return i > 0 && i == j && j < n - 1;
     }
 }

@@ -1,17 +1,23 @@
 class Solution {
     public int numSubarraysWithSum(int[] nums, int k) {
-         int sum = 0, result = 0;
-        Map<Integer, Integer> preSum = new HashMap<>();
-        preSum.put(0, 1);
-        
-        for (int i = 0; i < nums.length; i++) {
-            sum += nums[i];
-            if (preSum.containsKey(sum - k)) {
-                result += preSum.get(sum - k);
-            }
-            preSum.put(sum, preSum.getOrDefault(sum, 0) + 1);
-        }
-        
-        return result;        
+        // atMostK(nums,k)<- this will give subarray sum <=k | atMostK(nums,k-1) <= this will give subarray sum <=k-1.
+        // the diff atMostK(nums,k) - atmostK(nums,k-1) <- this will give subarray sum exactly  == k.
+        return SubarraySumAtMostK(nums,k) - SubarraySumAtMostK(nums,k-1);     
      }
+    public int SubarraySumAtMostK(int[]nums,int k){
+        int sum=0;
+        int i=0;
+        int j=0;
+        int ans=0;
+        
+        while(j<nums.length){
+            sum+=nums[j];
+            while(i<=j && sum>k){
+                sum-=nums[i++];
+            }
+            ans+=(j-i+1);
+            j++;
+        }
+        return ans;
+    }
 }

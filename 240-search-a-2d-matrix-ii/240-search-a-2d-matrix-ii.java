@@ -18,8 +18,11 @@ class Solution {
         
         if(matrix[mr][mc]<target){
             return solve(matrix,mr+1,cc,er,ec,target) || solve(matrix,cr,mc+1,er,ec,target);
+        }else if(matrix[mr][mc]>target){
+            return solve(matrix,cr,cc,mr-1,ec,target) || solve(matrix,cr,cc,er,mc-1,target); 
+        }else{
+            return false;
         }
         
-        return solve(matrix,cr,cc,mr-1,ec,target) || solve(matrix,cr,cc,er,mc-1,target); 
-    }
+      }
 }

@@ -9,54 +9,18 @@
  * }
  */
 class Solution {
-    public ListNode swapPairs(ListNode head) {
-        
-        if(head==null || head.next==null)return head;
-        
-        ListNode even = new ListNode(0);
-        ListNode odd = new ListNode(0);
-        ListNode ei = even, oi=odd;
-        
-        int count=0;
-        ListNode curr = head;
-        while(curr!=null){
-            
-            if(count%2==0){
-                ei.next = curr;
-                ei = ei.next;
-            }else{
-                oi.next = curr;
-                oi = oi.next;
-            }
-            count++;
-            curr = curr.next;
+     public ListNode swapPairs(ListNode head) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode point = dummy;
+        while (point.next != null && point.next.next != null) { 
+            ListNode swap1 = point.next;
+            ListNode swap2 = point.next.next;
+            point.next = swap2;
+            swap1.next = swap2.next;
+            swap2.next = swap1;
+            point = swap1;
         }
-        
-        // to break the further links
-        ei.next = null;
-        oi.next = null;
-        
-        
-        ListNode ans = new ListNode(0);
-        ListNode ai = ans;
-        
-        ListNode eh = even.next;
-        ListNode oh = odd.next;
-       
-        
-        while(eh!=null && oh!=null){
-            
-                ai.next = oh;
-                oh = oh.next;
-                ai = ai.next;
-        
-                ai.next = eh;
-                eh = eh.next;
-                ai = ai.next;            
-        }
-        
-        if(eh!=null)ai.next = eh;
-        
-        return ans.next;
+         return dummy.next;
     }
 }

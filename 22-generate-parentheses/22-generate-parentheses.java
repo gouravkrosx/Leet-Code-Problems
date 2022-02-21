@@ -7,7 +7,7 @@ class Solution {
     }
     public void generateParenthesis(List<String>ans,String str,int open,int close,int n){
         
-        if(open>n)return;
+        if(open>n || close>open)return;
         
         if(open==close){
             if(open==n){
@@ -15,9 +15,7 @@ class Solution {
                 return;    
             }
         }
-        
-        if(close>open)return;
-        
+            
         generateParenthesis(ans,str+"(",open+1,close,n);
         generateParenthesis(ans,str+")",open,close+1,n);
     }

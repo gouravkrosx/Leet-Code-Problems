@@ -14,49 +14,24 @@
  * }
  */
 class Solution {
+   Map<Integer, Integer> count = new HashMap<Integer, Integer>();
+    int maxCount = 0;
+
     public int[] findFrequentTreeSum(TreeNode root) {
-        HashMap<Integer,Integer>map = new HashMap<>();
-        List<Integer>list = new ArrayList<>();
-        
-        mostFrequentTreeSum(root,map);
-        
-        Set<Integer>set = new HashSet<>();
-        set.addAll(map.values());
-        
-        int[]res;
-        if(set.size()==1){
-            int size = map.size();
-            res= new int[size];
-            int i=0;
-            for(int key:map.keySet()){
-                res[i++]=key;
-            }
-        }else{
-            int max = Integer.MIN_VALUE;
-            for(int val:map.values()){
-                max = Math.max(val,max);
-            }
-            
-            for(int key:map.keySet()){
-                if(map.get(key)==max)list.add(key);
-            }
-            res = new int[list.size()];
-            int i=0;
-            for(int key:list){
-                res[i++]=key;
-            }
+        dfs(root);
+        List<Integer> res = new ArrayList<>();
+        for (int s : count.keySet()) {
+            if (count.get(s) == maxCount)
+                res.add(s);
         }
-        return res;
+        return res.stream().mapToInt(i->i).toArray();
     }
-    public int mostFrequentTreeSum(TreeNode node,HashMap<Integer,Integer>map){
-        if(node==null)return 0;
-        
-        int left = mostFrequentTreeSum(node.left,map);
-        int right = mostFrequentTreeSum(node.right,map);
-  
-        int sum = left + right + node.val;
-        
-        map.put(sum,map.getOrDefault(sum,0)+1);
-        return sum;
+
+    private int dfs(TreeNode root) {
+        if (root == null) return 0;
+        int s = dfs(root.left) + dfs(root.right) + root.val;
+        count.put(s, count.getOrDefault(s, 0) + 1);
+        maxCount = Math.max(maxCount, count.get(s));
+        return s;
     }
 }

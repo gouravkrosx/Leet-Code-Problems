@@ -1,46 +1,19 @@
 class Solution {
-    public int compareVersion(String v1, String v2) {
+    public int compareVersion(String version1, String version2) {
+        String[] levels1 = version1.split("\\.");
+        String[] levels2 = version2.split("\\.");
+    
+        int length = Math.max(levels1.length, levels2.length);
         
-        boolean f1=false;
-        boolean f2=false;
-        int m = v1.length();
-        int n = v2.length();
-        int i=0,j=0;
-        
-        while(i<m || j<n){
-            f1=false;
-            f2=false;
-            
-            String s1="";
-            while(i<m && v1.charAt(i)!='.'){
-                s1+=v1.charAt(i++);
-                f1=true;                              
+        for (int i=0; i<length; i++) {
+            Integer v1 = i < levels1.length ? Integer.parseInt(levels1[i]) : 0;
+            Integer v2 = i < levels2.length ? Integer.parseInt(levels2[i]) : 0;
+            int compare = v1.compareTo(v2);
+            if (compare != 0) {
+                return compare;
             }
-            i++; //to skip the dot
-            
-            String s2="";
-            while(j<n && v2.charAt(j)!='.'){
-                s2+=v2.charAt(j++);
-                f2=true;   
-            }
-            j++;
-            
-            int a=0,b=0;
-            if(f1){
-                a=Integer.parseInt(s1);
-            }
-            
-            if(f2){
-                b=Integer.parseInt(s2);   
-            }
-            
-            if(a>b){
-                return 1;
-            }else if(a<b){
-                return -1;
-            }
-            
         }
+
         return 0;
     }
 }

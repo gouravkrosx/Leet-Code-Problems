@@ -17,9 +17,9 @@ class Solution {
 				}
 			} else if(arr[mid]<arr[l]) {// right part sorted
 				if (target > arr[mid] && target <= arr[r]) {
-					l = mid + 1;
+					l = mid;
 				} else {
-					r = mid;
+					r = mid-1;
 				}
 			}else{
                 l++; // have no idea about the array, but we can exclude nums[l] because nums[l] == nums[mid]

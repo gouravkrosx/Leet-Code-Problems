@@ -1,12 +1,12 @@
 class Solution {
     public int shortestPathLength(int[][] graph) {
-        int mask = 1, n = graph.length;
+        int n = graph.length;
+        int mask = (1<<n)-1;
         
         Queue<int[]>q = new LinkedList<>();
         Set<String>visPath = new HashSet<>();
         
         for(int i=0;i<n;i++){
-            mask = (mask | 1<<i);
             q.offer(new int[]{i,1<<i});
             visPath.add(i+":"+(1<<i));
         }

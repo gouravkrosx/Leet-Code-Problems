@@ -7,18 +7,18 @@ class Solution {
         int pdiff = nums[1]-nums[0];
         
         int count=0;
+        int sum=0;
         for(int i=2;i<n;i++){
              int diff = nums[i]-nums[i-1];
            
                 if(diff==pdiff){
                     count++;
-                    dp[i]=dp[i-1]+count;
+                   sum+=count;
                 }else{
                     count=0;
-                    dp[i]=dp[i-1];
                 }
             pdiff=diff;
         }
-        return dp[n-1];
+        return sum;
     }
 }

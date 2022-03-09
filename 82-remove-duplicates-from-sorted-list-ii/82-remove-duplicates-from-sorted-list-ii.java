@@ -12,41 +12,21 @@ class Solution {
     public ListNode deleteDuplicates(ListNode head) {
         if(head==null || head.next==null)return head;
         
-        ListNode dummy = new ListNode(0);
-        ListNode prev = dummy;
-        
-        ListNode curr = head;
-        ListNode ahead = curr.next;
-
+    ListNode dummy = new ListNode(0), curr = head, prev = dummy;
         prev.next = curr;
-        
-
-        
-        boolean flag = false;
-        
-        while(ahead!=null){
-            if(ahead.val==curr.val){
-                ahead=ahead.next;
-                flag = true;
-            }else{
-                if(flag){
-                    prev.next = ahead;
-                    curr = ahead;
-                    ahead = ahead.next;
-                }else{
-                    prev.next = curr;
-                    prev = curr;
-                    curr = ahead;
-                    ahead = ahead.next; 
-                }
-                flag = false;
+        while(curr != null) {
+            while (curr.next != null && curr.val == curr.next.val) {
+                curr = curr.next;    //while loop to find the last node of the dups.
             }
+            if (prev.next != curr) { //duplicates detected.
+                prev.next = curr.next; //remove the dups.
+                curr = curr.next;     //reposition the curr pointer.
+            } else { //no dup, move down both pointer.
+                prev = prev.next;
+                curr = curr.next;
+            }
+
         }
-        
-        if(flag){
-            prev.next = ahead;
-        }
-        
         return dummy.next;
     }
 }

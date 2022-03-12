@@ -1,47 +1,23 @@
+// For each A[i]
+// inc: The length of current valid sequence which ends with two increasing numbers
+// dec: The length of current valid sequence which ends with two decreasing numbers
+
 class Solution {
-    public int maxTurbulenceSize(int[] arr) {
-        if(arr.length==1)return 1;
-        
-        int case1=1;
-        int c1=1;
-        int case2=1;
-        int c2=1;
-        
-        // for even greater case
-        for(int i=0;i<arr.length-1;i++){
-            if(i%2==0){
-                if(arr[i]>arr[i+1]){
-                    c1++;
-                }else{
-                    c1=1;
-                }
-            }else{
-                if(arr[i]<arr[i+1]){
-                    c1++;
-                }else{
-                    c1=1;
-                }
+    public int maxTurbulenceSize(int[] A) {
+        int inc = 1, dec = 1, result = 1;
+        for (int i = 1; i < A.length; i++) {
+            if (A[i] < A[i - 1]) {
+                dec = inc + 1;
+                inc = 1;
+            } else if (A[i] > A[i - 1]) {
+                inc = dec + 1;
+                dec = 1;
+            } else {
+                inc = 1;
+                dec = 1;
             }
-            case1=Math.max(case1,c1);
+            result = Math.max(result, Math.max(dec, inc));
         }
-        
-        // for odd greater case
-        for(int i=0;i<arr.length-1;i++){
-            if(i%2!=0){
-                if(arr[i]>arr[i+1]){
-                    c2++;
-                }else{
-                    c2=1;
-                }
-            }else{
-                if(arr[i]<arr[i+1]){
-                    c2++;
-                }else{
-                    c2=1;
-                }
-            }
-            case2=Math.max(case2,c2);
-        }
-        return Math.max(case1,case2);
+        return result;
     }
 }

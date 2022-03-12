@@ -1,5 +1,6 @@
 class Solution {
-// Logic:      
+// Logic: Think problem backward, and apply bfs from all the lands at the same time.
+// and see how far it can go.    
     public int maxDistance(int[][] grid) {
         
         int n = grid.length;

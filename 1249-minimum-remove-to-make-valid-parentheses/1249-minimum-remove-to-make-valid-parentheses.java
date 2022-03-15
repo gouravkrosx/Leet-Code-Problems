@@ -1,48 +1,27 @@
 class Solution {
     public String minRemoveToMakeValid(String s) {
-        HashMap<Integer,Integer>map = new HashMap<>();
-        
-        Stack<int[]>st = new Stack<>();
-        
-        for(int i=0;i<s.length();i++){
+        Stack<Integer> stack = new Stack<>();
+        for(int i=0;i<s.length();i++) {
             char ch = s.charAt(i);
-            
-            if(Character.isAlphabetic(ch)){
+            if(Character.isAlphabetic(ch))
                 continue;
-            }
-            
-            if(ch=='('){
-                map.put(i,0);
-                st.push(new int[]{i,0});
-            }else{
-                map.put(i,1);
-                if(!st.isEmpty() && st.peek()[1]==0){
-                    st.pop();
-                }else{
-                    st.push(new int[]{i,1});
-                }
+            if(ch == '(')
+                stack.push(i);
+            else {
+                if(!stack.isEmpty() && s.charAt(stack.peek()) == '(')
+                    stack.pop();
+                else stack.push(i);
             }
         }
         
-        while(!st.isEmpty()){
-            map.remove(st.pop()[0]);
-        }
+        // if(stack.size() == 0) return "";
         
-        StringBuilder sb = new StringBuilder();
+        StringBuilder result = new StringBuilder();
+        HashSet<Integer> set = new HashSet<>(stack);
+        for(int i=0;i<s.length();i++)
+            if(!set.contains(i))
+                result.append(s.charAt(i));
         
-        for(int i=0;i<s.length();i++){
-            char ch = s.charAt(i);
-            
-            if(Character.isAlphabetic(ch)){
-                sb.append(ch);
-                continue;
-            }
-            
-            if(map.containsKey(i)){
-                sb.append(ch);
-            }
-        }
-        
-        return sb.toString();
+        return result.toString();
     }
 }

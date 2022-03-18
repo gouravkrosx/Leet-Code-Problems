@@ -11,13 +11,7 @@ class Solution {
         
         for(int i=0;i<s.length();i++){
             char ch = s.charAt(i);
-            
-            if(st.isEmpty()){
-                st.push(ch);
-                set.add(ch);
-                continue;
-            }
-            
+                       
             if(set.contains(ch)){
                 map.put(ch,map.get(ch)-1);
                 continue;

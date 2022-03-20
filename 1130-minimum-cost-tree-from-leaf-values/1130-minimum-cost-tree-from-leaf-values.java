@@ -3,32 +3,29 @@ class Solution {
      
         int n = arr.length;
      
-        int[][]dp = new int[n][n];
-        for(int[]dpp:dp)Arrays.fill(dpp,-1);
-        return  maxCountTree(arr,0,n-1,dp);
+        int[][][]dp = new int[n][n][2];
+        return  maxCountTree(arr,0,n-1,dp)[0];
     }
-    
-    public int maxCountTree(int[]arr,int si,int ei,int[][]dp){
+//     {minSum,maxLeaf}
+    public int[] maxCountTree(int[]arr,int si,int ei,int[][][]dp){
         if(si==ei){
-            return 0;
+            return new int[]{0,arr[si]};
         }
         
-        if(dp[si][ei]!=-1)return dp[si][ei];
+        if(dp[si][ei][0]!=0)return dp[si][ei];
     
         int ans = Integer.MAX_VALUE;
+        int maxLeaf = 0;
         
         for(int k=si;k<ei;k++){
-            int left = maxCountTree(arr,si,k,dp);
-            int right = maxCountTree(arr,k+1,ei,dp);
+            int[] left = maxCountTree(arr,si,k,dp);
+            int[] right = maxCountTree(arr,k+1,ei,dp);
             
-            int leftMax = 0;
-            int rightMax = 0;
-            for(int i=si;i<=k;i++)leftMax = Math.max(leftMax,arr[i]);
-            for(int i=k+1;i<=ei;i++)rightMax = Math.max(rightMax,arr[i]);
+            maxLeaf = Math.max(maxLeaf,Math.max(left[1],right[1]));
             
-            int overAll = leftMax*rightMax + left + right;
+            int overAll = left[1]*right[1] + left[0] + right[0];
             ans = Math.min(ans,overAll);
         }
-        return dp[si][ei]=ans;
+        return dp[si][ei]=new int[]{ans,maxLeaf};
     }
 }

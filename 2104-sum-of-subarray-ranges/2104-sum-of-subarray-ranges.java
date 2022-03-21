@@ -38,7 +38,7 @@ class Solution {
         
         st = new Stack<>();
         for(int i=0 ;i<n ;i++){
-            while(!st.isEmpty() && nums[st.peek()] < nums[i]){
+            while(!st.isEmpty() && nums[st.peek()] <= nums[i]){
                 st.pop();
             }
             if(!st.isEmpty()){
@@ -49,7 +49,7 @@ class Solution {
         
         st = new Stack<>();
         for(int i=n-1 ; i>=0;i--){
-            while(!st.isEmpty() && nums[st.peek()] <= nums[i]){
+            while(!st.isEmpty() && nums[st.peek()] < nums[i]){
                 st.pop();
             }
             

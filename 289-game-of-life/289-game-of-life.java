@@ -6,23 +6,20 @@ class Solution {
         
         for(int i = 0;i<m;i++){
             for(int j=0;j<n;j++){
-                int cnt = collect(board,i,j,m,n);
-                
-                if(board[i][j]==0){
-                    if(cnt==3){
-                        arr[i][j]=1;
-                    }
-                }else{
-                    if(cnt==2||cnt==3){
-                        arr[i][j]=1;
-                    }
-                }
+                int alive = collect(board,i,j,m,n);
+    
+                // Dead cell with 3 live neighbors becomes alive
+			if (board[i][j] == 0 && alive == 3) // board[i][j] = 00
+				board[i][j] = 2; // board[i][j] = 10
+			// Live cell with 2 or 3 live neighbors lives on
+			else if (board[i][j] == 1 && (alive == 2 || alive == 3)) // board[i][j] = 01
+				board[i][j] = 3; // board[i][j] = 11              
             }
         }
         
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
-                board[i][j]=arr[i][j];
+                board[i][j]=(board[i][j]>>1);
             }
         }
     }
@@ -35,7 +32,7 @@ class Solution {
             int y = c + dir[i][1];
             
             if(x<0|| x>=m || y<0 || y>=n)continue;
-            if(board[x][y]==1)cnt++;
+            if((board[x][y]&1)==1)cnt++;
         }
         return cnt;
     }

@@ -76,90 +76,88 @@ class Node
 }
 
 */
-class Solution
-{
-Node subLinkedList(Node l1, Node l2)
-{
+class Solution {
+    Node subLinkedList(Node l1, Node l2) {
 
-l1 = skipLeadingZero(l1);
-l2 = skipLeadingZero(l2);
+        l1 = skipLeadingZero(l1);
+        l2 = skipLeadingZero(l2);
 
-int s1 = size(l1);
-int s2 = size(l2);
+        int s1 = size(l1);
+        int s2 = size(l2);
 
-if(s1 < s2) return subLinkedList(l2,l1);
-else if(s1 == s2) {
-if(sumDigit(l1) < sumDigit(l2))
-return subLinkedList(l2,l1);
-}
+        if (s1 < s2) return subLinkedList(l2, l1);
+        else if (s1 == s2) {
+            if (sumDigit(l1) < sumDigit(l2))
+                return subLinkedList(l2, l1);
+        }
 
-l1 = reverse(l1);
-l2 = reverse(l2);
+        l1 = reverse(l1);
+        l2 = reverse(l2);
 
-Node ansHead,ansTail;
-ansHead=ansTail=new Node(-1);
+        Node ansHead, ansTail;
+        ansHead = ansTail = new Node(-1);
 
-while(l2 != null && l1 !=null) {
-if(l1.data < l2.data) {
-l1.data += 10;
-adjustBorrow(l1.next);
-}
+        while (l2 != null && l1 != null) {
+            if (l1.data < l2.data) {
+                l1.data += 10;
+                adjustBorrow(l1.next);
+            }
 
-ansTail.next = new Node(l1.data - l2.data);
-ansTail = ansTail.next;
+            ansTail.next = new Node(l1.data - l2.data);
+            ansTail = ansTail.next;
 
-l1=l1.next;
-l2=l2.next;
-}
+            l1 = l1.next;
+            l2 = l2.next;
+        }
 
-ansTail.next = l1;
+        ansTail.next = l1;
 
-ansHead = reverse(ansHead.next);
-ansHead = skipLeadingZero(ansHead);
+        ansHead = reverse(ansHead.next);
+        ansHead = skipLeadingZero(ansHead);
 
-return (ansHead == null) ? new Node(0) : ansHead;
-}
+        return (ansHead == null) ? new Node(0) : ansHead;
+    }
 
-static long sumDigit(Node head) {
-long s=0;
-while(head != null) {
-s = s + head.data;
-head=head.next;
-}
-return s;
-}
+    static long sumDigit(Node head) {
+        long s = 0;
+        while (head != null) {
+            s = s + head.data;
+            head = head.next;
+        }
+        return s;
+    }
 
-static int size(Node head) {
-int s=0;
-while(head != null) {
-s++;
-head=head.next;
-}
-return s;
-}
+    static int size(Node head) {
+        int s = 0;
+        while (head != null) {
+            s++;
+            head = head.next;
+        }
+        return s;
+    }
 
-static Node reverse(Node head) {
-if(head == null || head.next == null) return head;
+    static Node reverse(Node head) {
+        if (head == null || head.next == null) return head;
 
-Node tail = reverse(head.next);
-head.next.next = head;
-head.next = null;
-return tail;
-}
+        Node tail = reverse(head.next);
+        head.next.next = head;
+        head.next = null;
+        return tail;
+    }
 
-void adjustBorrow(Node node) {
-while(node!= null && node.data == 0) {
-node.data = 9;
-node=node.next;
-}
-if(node != null)
-node.data--;
-}
+    void adjustBorrow(Node node) {
+        while (node != null && node.data == 0) {
+            node.data = 9;
+            node = node.next;
+        }
+        if (node != null)
+            node.data--;
+    }
 
-Node skipLeadingZero(Node head) {
-while(head != null && head.data == 0) {
-head=head.next;
-}
-return head;
-}
+    Node skipLeadingZero(Node head) {
+        while (head != null && head.data == 0) {
+            head = head.next;
+        }
+        return head;
+    }
 }
